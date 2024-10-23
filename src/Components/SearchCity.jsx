@@ -5,19 +5,23 @@ import axios from 'axios';
 
 function SearchCity() {
 
-  const API_URL = "https://api.openweathermap.org/data/3.0/onecall";
+  const API_URL = "https://api.openweathermap.org/data/2.5/weather";
   const API_KEY = "a2bd4bb81e517d2301aa82140a015d5f";
 
   let getWhetherInfo = async () => {
-    const response = await axios.get(`${API_URL}`)
+    const response = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}&units=metrics`);
+    let jsonResponse = await response.json();
+    console.log(jsonResponse)
   }
     const [city, setCity] = useState("");
     const handleChange = (e) => {
-        setCity(e.target.value);
+      setCity(e.target.value);
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(city);
+      console.log(city);
+      setCity('');
+      getWhetherInfo();
     }
   return (
     <div className="flex my-3 justify-center items-center h-80 w-80 border border-teal-400  bg-zinc-800">
